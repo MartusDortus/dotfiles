@@ -31,3 +31,4 @@ PS1="[${SHLVL}] ${debian_chroot:+($debian_chroot)}${color_yellow}\u${color_red}@
 
 alias l="ls -la"
 alias v="vim"
+alias s="ssh"
