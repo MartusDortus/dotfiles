@@ -46,7 +46,7 @@ alias v="vim"
 alias sv="sudo vim"
 alias s="ssh"
 
-if [ -f ~/.bash_aliases]; then
+if [ -f ~/.bash_aliases ]; then
    .~/.bash_aliases
 fi
 
