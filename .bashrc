@@ -23,6 +23,8 @@ shopt -s checkwinsize   # After every command recheck window size
 
 ##
 ##       PROMPT
+  
+## TODO: if root: cerveny@cerveny
 
 # set variable identifying the chroot you work in
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
