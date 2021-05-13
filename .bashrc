@@ -21,13 +21,32 @@ HISTFILESIZE=2000       # lines
 shopt -s histappend     # append to the history file, don't overwrite it
 shopt -s checkwinsize   # After every command recheck window size
 
+##
+##       PROMPT
+
+# set variable identifying the chroot you work in
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+   debian_chroot=$(cat /etc/debian_chroot)
+fi
+
 PS1="[${SHLVL}] ${debian_chroot:+($debian_chroot)}${color_yellow}\u${color_red}@${color_yellow}\h:${color_blue}\w\[\033[00m\]\$ "
 
-alias l="ls -la"
-alias ll="ls -la"
+##
+##       ALIASY
+
+alias ls="ls --color=auto"
+alias grep="grep --color=auto"
+alias egrep="egrep --color=auto"
+
+alias l="ls -lA"
+alias ll="ls -lA"
 alias v="vim"
 alias sv="sudo vim"
 alias s="ssh"
+
+if [ -f ~/.bash_aliases]; then
+   .~/.bash_aliases
+fi
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
