@@ -1,6 +1,7 @@
 "	PlugInstall
 call plug#begin()
 	Plug 'morhetz/gruvbox'
+	Plug 'gregsexton/MatchTag'
 call plug#end()
 
 "	Prostredi
