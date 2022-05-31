@@ -45,6 +45,7 @@ alias ll="ls -lA"
 alias v="vim"
 alias sv="sudo vim"
 alias s="ssh"
+alias nload="nload -i 750000 -o 750000 -t 75"
 
 if [ -f ~/.bash_aliases ]; then
    .~/.bash_aliases
