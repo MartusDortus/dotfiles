@@ -1,7 +1,13 @@
 #
-#  Version 0.1
-#     - Add chnangelog
+#	Version 0.1
+#		- Add chnangelog
 #
+#	Version 0.2
+#		- Prompt color correction
+#
+#
+#
+#	 TODO: if root: cerveny@cerveny
 #
 
 # If not running interactively, don't do anything
@@ -13,7 +19,7 @@ esac
 color_red='\033[0;31m'
 color_green='\033[0;32m'
 color_brown='\033[0;33m'
-color_blue='\033[0;34m'
+color_blue='\033[0;33m'
 color_magenta='\033[0;35m'
 color_cyan='\033[0;36m'
 color_white='\033[0;37m'
@@ -30,7 +36,6 @@ shopt -s checkwinsize   # After every command recheck window size
 ##
 ##       PROMPT
   
-## TODO: if root: cerveny@cerveny
 
 # set variable identifying the chroot you work in
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
@@ -40,9 +45,9 @@ fi
 PS1="[${SHLVL}] ${debian_chroot:+($debian_chroot)}${color_yellow}\u${color_red}@${color_yellow}\h:${color_blue}\w\[\033[00m\]\$ "
 
 ##
-##       ALIAS
+##       ALIASES
 
-alias ls="ls --color=auto"
+alias ls="ls --color=auto -h"
 alias grep="grep --color=auto"
 alias egrep="egrep --color=auto"
 
