@@ -1,16 +1,21 @@
 #!/bin/bash
 
 # Requirements
-#	wget
+#	curl
 
 # Changelog
 #	Version 0.0.1
 #		- Begin
 #		- VIM installation
+#		- Bash installation
 
 
 #	TODO	shell options (run parameters)
 #	TODO	test, if everything is ok ???
+
+echo "--- .bashrc installation started... ---"
+cp .bashrc ~/
+echo "--- .bashrc installation fineshed. ---"
 
 echo "--- VIM installation started... ---"
 cp .vimrc ~/
