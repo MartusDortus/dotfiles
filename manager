@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Requirements
+#	wget
+
+# Changelog
+#	Version 0.0.1
+#		- Begin
+#		- VIM installation
+
+
+#	TODO	shell options (run parameters)
+#	TODO	test, if everything is ok ???
+
+echo "--- VIM installation started... ---"
+cp .vimrc ~/
+mkdir -p ~/.vim/undo/ ~/.vim/swap/ ~/.vim/backup/ ~/.vim/autoload/
+curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+vim -s  +PlugInstall +q!
+echo "--- VIM installation finished ---"
