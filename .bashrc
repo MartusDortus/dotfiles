@@ -1,3 +1,9 @@
+#
+#  Version 0.1
+#     - Add chnangelog
+#
+#
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -34,22 +40,24 @@ fi
 PS1="[${SHLVL}] ${debian_chroot:+($debian_chroot)}${color_yellow}\u${color_red}@${color_yellow}\h:${color_blue}\w\[\033[00m\]\$ "
 
 ##
-##       ALIASY
+##       ALIAS
 
 alias ls="ls --color=auto"
 alias grep="grep --color=auto"
 alias egrep="egrep --color=auto"
 
-alias l="ls -lA"
 alias ll="ls -lA"
+alias l="ls -lA"
+
 alias v="vim"
 alias sv="sudo vim"
+
 alias s="ssh"
 alias nload="nload -i 750000 -o 750000 -t 75"
 
-if [ -f ~/.bash_aliases ]; then
-   .~/.bash_aliases
-fi
+# if [ -f ~/.bash_aliases ]; then
+#   .~/.bash_aliases
+# fi
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
