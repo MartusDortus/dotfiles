@@ -1,0 +1,55 @@
+# Firewall configuration on vpsfree server
+
+table ip filter {
+	chain INPUT {
+		type filter hook input priority filter; policy accept;
+		iifname "lxcbr0" meta l4proto tcp tcp dport 53 counter packets 0 bytes 0 accept
+		iifname "lxcbr0" meta l4proto udp udp dport 53 counter packets 757 bytes 55495 accept
+		iifname "lxcbr0" meta l4proto tcp tcp dport 67 counter packets 0 bytes 0 accept
+		iifname "lxcbr0" meta l4proto udp udp dport 67 counter packets 6 bytes 1970 accept
+		iifname "lxcbr0" tcp dport 53 counter packets 192 bytes 12000 accept
+		iifname "lxcbr0" udp dport 53 counter packets 103494 bytes 7249302 accept
+		iifname "lxcbr0" tcp dport 67 counter packets 0 bytes 0 accept
+		iifname "lxcbr0" udp dport 67 counter packets 413 bytes 135464 accept
+	}
+
+	chain FORWARD {
+		type filter hook forward priority filter; policy accept;
+		oifname "lxcbr0" counter packets 2467533 bytes 161904124 accept
+		iifname "lxcbr0" counter packets 2443806 bytes 361103876 accept
+		oifname "lxcbr0" counter packets 13674088 bytes 9980709879 accept
+		iifname "lxcbr0" counter packets 13882188 bytes 9831120118 accept
+	}
+}
+table ip nat {
+	chain POSTROUTING {
+		type nat hook postrouting priority srcnat; policy accept;
+		ip saddr 192.168.89.0/24 ip daddr != 192.168.89.0/24 counter packets 135257 bytes 9636852 masquerade 
+		ip saddr 10.0.3.0/24 ip daddr != 10.0.3.0/24 counter packets 1 bytes 40 masquerade
+		ip saddr 192.168.89.0/24 ip daddr != 192.168.89.0/24 counter packets 119990 bytes 10405321 masquerade
+		ip saddr 192.168.98.0/24 oif "venet0" masquerade
+	}
+
+	chain prerouting {
+		type nat hook prerouting priority dstnat; policy accept;
+		iif "venet0" tcp dport { 25, 465, 587 } dnat to 192.168.89.2
+		iif "venet0" tcp dport { 143, 993 } dnat to 192.168.89.2
+		iif "venet0" tcp dport { 30306, 33036 } dnat to 192.168.89.3:3306
+		iif "venet0" tcp dport { 80, 443 } dnat to 192.168.89.1
+		iif "venet0" tcp dport { 9122 } dnat to 192.168.89.1:22
+		iif "venet0" udp dport { 1194-1196 } dnat to 192.168.89.10
+		iif "venet0" tcp dport 3050 dnat to 192.168.89.9:80
+	}
+}
+table ip mangle {
+	chain POSTROUTING {
+		type filter hook postrouting priority mangle; policy accept;
+		oifname "lxcbr0" meta l4proto udp udp dport 68 counter packets 5 bytes 1642 # CHECKSUM fill
+		oifname "lxcbr0" udp dport 68 counter packets 417 bytes 136778
+	}
+}
+table inet filter {
+	chain input {
+		type filter hook input priority filter; policy accept;
+	}
+}
