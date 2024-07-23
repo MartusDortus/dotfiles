@@ -47,17 +47,24 @@ PS1="[${SHLVL}] ${debian_chroot:+($debian_chroot)}${color_yellow}\u${color_red}@
 ##
 ##       ALIASES
 
-alias ls="ls --color=auto -h"
+
+##      grep
 alias grep="grep --color=auto"
 alias egrep="egrep --color=auto"
 
-alias ll="ls -lA"
-alias l="ls -lA"
+##      ls
+alias ls="ls --color=auto -h"
+alias ll="ls -lAh"
+alias l=ll
 
+##      vim
 alias v="vim"
 alias sv="sudo vim"
 
+##      ssh
 alias s="ssh"
+
+##      nload
 alias nload="nload -i 750000 -o 750000 -t 75"
 
 # if [ -f ~/.bash_aliases ]; then
