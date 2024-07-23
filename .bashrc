@@ -1,14 +1,30 @@
 #
-#	Version 0.1
-#		- Add chnangelog
+#       Version 0.1
+#               - Add chnangelog
 #
-#	Version 0.2
-#		- Prompt color correction
+#       Version 0.2
+#               - Prompt color correction
+#
+#       Version 0.3
+#               - ls -lAh
+#               - update_bashrc function
 #
 #
 #
-#	 TODO: if root: cerveny@cerveny
+#        TODO: if root: cerveny@cerveny ???
 #
+
+
+##
+##              UPDATE FUNCTION
+
+
+f_update_bashrc() {
+        curl https://raw.githubusercontent.com/MartusDortus/dotfiles/master/.bashrc
+}
+
+
+
 
 # If not running interactively, don't do anything
 case $- in
@@ -35,7 +51,7 @@ shopt -s checkwinsize   # After every command recheck window size
 
 ##
 ##       PROMPT
-  
+
 
 # set variable identifying the chroot you work in
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
@@ -47,6 +63,8 @@ PS1="[${SHLVL}] ${debian_chroot:+($debian_chroot)}${color_yellow}\u${color_red}@
 ##
 ##       ALIASES
 
+##      functions
+alias update_bashrc="f_update_bashrc"
 
 ##      grep
 alias grep="grep --color=auto"
@@ -84,3 +102,4 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+[3] root@pavouk:~$
