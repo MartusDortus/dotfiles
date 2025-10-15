@@ -8,7 +8,7 @@
 
 #  Nastaveni promennych
 WORKING_DIR=~/novy-virtual
-mkdir -p $WORKING_DIR
+mkdir -p $WORKING_DIR/srcfiles
 
 apt install curl -y
 
