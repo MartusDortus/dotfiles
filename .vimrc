@@ -1,3 +1,7 @@
+"       Version 0.1
+"               - Init verze
+"
+
 execute pathogen#infect()
 
 "       Prostredi
