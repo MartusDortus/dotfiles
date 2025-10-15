@@ -1,4 +1,4 @@
-# dotfiles
-# Just my dotfiles
+# .dotfiles
+Repo obsahuje dotfiles pro pekne UI v Debianu
 
-# Fell free to use
+Stahnout skript setup.sh, dat mu +x a melo by to vse projit samo.
