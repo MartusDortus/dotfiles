@@ -1,19 +1,29 @@
+#!/bin/bash
 #  v0.1
 #    -  Vyrobeny skript
 #
 #  TODO
 #  -  Aby po sobe skript uklidil
+#  -  Aby tento skript nakonec nebyl potreba, ale vsechno delal ansible
 
-#!/bin/bash
-
-apt install ansible curl -y
-
+#  Nastaveni promennych
 WORKING_DIR=~/novy-virtual
+mkdir -p $WORKING_DIR
 
-curl -L martus.cz/soubory/ansible/inventory.yml -o $WOKRING_DIR/inventory.yml
-curl -L martus.cz/soubory/ansible/vim.yml -o $WORKING_DIR/vim.yml
-curl -L martus.cz/soubory/ansible/vimrc.txt -o $WORKING_DIR/srcfiles/.vimrc
-curl -L martus.cz/soubory/ansible/bashrc.txt -o $WORKING_DIR/srcfiles/.bashrc
+apt install curl -y
 
+#  Moje dotfiles
+#  Stahovat drive, nez zapocne snaha o Ansible, takze dotfiles budou, ikdyby neco selhalo.
+curl -L https://raw.githubusercontent.com/MartusDortus/dotfiles/refs/heads/master/.bashrc -o $WORKING_DIR/srcfiles/.bashrc
+curl -L https://raw.githubusercontent.com/MartusDortus/dotfiles/refs/heads/master/.vimrc -o $WORKING_DIR/srcfiles/.vimrc
+
+#  Ansible
+apt install ansible -y
+
+##  Konfigurace pro Ansible
+curl -L https://raw.githubusercontent.com/MartusDortus/dotfiles/refs/heads/master/inventory.yml -o $WOKRING_DIR/inventory.yml
+curl -L https://raw.githubusercontent.com/MartusDortus/dotfiles/refs/heads/master/vim.yml -o $WORKING_DIR/vim.yml
+
+##  Spusteni Ansible
 cd $WORKING_DIR
 ansible-playbook -i inventory.yml vim.yml
