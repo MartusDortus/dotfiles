@@ -10,7 +10,9 @@
 WORKING_DIR=~/novy-virtual
 mkdir -p $WORKING_DIR/srcfiles
 
-apt install curl -y
+apt-get update && apt-get upgrade -y
+
+apt-get install curl -y
 
 #  Moje dotfiles
 #  Stahovat drive, nez zapocne snaha o Ansible, takze dotfiles budou, ikdyby neco selhalo.
@@ -18,7 +20,7 @@ curl -L https://raw.githubusercontent.com/MartusDortus/dotfiles/refs/heads/maste
 curl -L https://raw.githubusercontent.com/MartusDortus/dotfiles/refs/heads/master/.vimrc -o $WORKING_DIR/srcfiles/.vimrc
 
 #  Ansible
-apt install ansible -y
+apt-get install ansible -y
 
 ##  Konfigurace pro Ansible
 curl -L https://raw.githubusercontent.com/MartusDortus/dotfiles/refs/heads/master/inventory.yml -o $WOKRING_DIR/inventory.yml
