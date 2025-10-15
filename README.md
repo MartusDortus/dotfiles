@@ -12,3 +12,7 @@ Lze spustit jako
 ```
 curl -L api.martus.cz/q/setup.php | bash --
 ```
+Nebo
+```
+wget -qO- api.martus.cz/q/setup.php | bash
+```
