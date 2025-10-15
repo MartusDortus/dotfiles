@@ -7,3 +7,8 @@ Na skript taky ukazuje URL
 
 https://api.martus.cz/q/setup.php
 - [ ] Aby /q/setup.php nebyl jen prachprostej redirect (stahovat soubor lokalne do cache na serveru, ktery jej dale poskytuje)
+
+Lze spustit jako
+```
+curl -L api.martus.cz/q/setup.php | bash --
+```
