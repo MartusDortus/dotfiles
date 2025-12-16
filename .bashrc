@@ -9,6 +9,14 @@
 #               - ls -lAh
 #               - update_bashrc function
 #
+#       Version 0.4
+#       	- Odebrani debian_chroot
+#       	- Prizpusobeni pro Arch, Hyprland, Kitty
+#       	- RGB barvy
+#
+#       Version 0.5
+#       	- Modernizace PS1
+#
 #
 #
 #        TODO: if root: cerveny@cerveny ???
@@ -38,9 +46,14 @@ color_brown='\033[0;33m'
 color_blue='\033[0;33m'
 color_magenta='\033[0;35m'
 color_cyan='\033[0;36m'
-color_white='\033[0;37m'
+color_white='\033[0;37m]'
 color_gray='\033[0;90m'
 color_yellow='\033[0;93m'
+
+#	RGB '\033[38;2;RR;GG;BBm]'
+color_hypr_blue='\033[38;2;33;255;238m'
+color_hypr_green='\033[38;2;00;255;153m'
+color_hypr_white='\033[38;2;200;200;200m'
 
 
 HISTCONTROL=ignoreboth  # Do not hist duplicate lines or space starting lines
@@ -52,13 +65,17 @@ shopt -s checkwinsize   # After every command recheck window size
 ##
 ##       PROMPT
 
+function nonzero_return() {
+	RETVAL=$?
+	[ $RETVAL -ne 0 ] && echo "[$RETVAL] "
+}
 
-# set variable identifying the chroot you work in
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-   debian_chroot=$(cat /etc/debian_chroot)
-fi
+PROMPT_SHELL_LVL="${color_hypr_green}[${SHLVL}]"
+PROMPT_USER="${color_hypr_blue}\u"
+PROMPT_PWD="${color_hypr_green}\W"
+PROMPT_PROMPT="${color_hypr_white}$"
 
-PS1="[${SHLVL}] ${debian_chroot:+($debian_chroot)}${color_yellow}\u${color_red}@${color_yellow}\h:${color_blue}\w\[\033[00m\]\$ "
+PS1="\`nonzero_return\`${PROMPT_SHELL_LVL} ${PROMPT_USER} ${PROMPT_PWD} ${PROMPT_PROMPT} "
 
 ##
 ##       ALIASES
@@ -90,7 +107,7 @@ alias nload="nload -i 750000 -o 750000 -t 75"
 # fi
 
 # make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
