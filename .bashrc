@@ -1,27 +1,24 @@
 #
-#       Version 0.1
+#       v0.1
 #               - Add chnangelog
-#
-#       Version 0.2
+#       v0.2
 #               - Prompt color correction
-#
-#       Version 0.3
+#       v0.3
 #               - ls -lAh
 #               - update_bashrc function
-#
-#       Version 0.4
+#       v0.4
 #       	- Odebrani debian_chroot
 #       	- Prizpusobeni pro Arch, Hyprland, Kitty
 #       	- RGB barvy
-#
-#       Version 0.5
+#       v0.5
 #       	- Modernizace PS1
+#       v0.6
+#       	- Odprizpusobeni pro Arch, Hyprland, Kitty
+#       	- Snad uz vyresene barvy
+#       	- root username ma jinou barvu promptu
 #
-#
-#
-#        TODO: if root: cerveny@cerveny ???
-#
-
+#	TODO
+#		- funkce, ktera /usr/local/bin zkrati na /u/l/bin
 
 ##
 ##              UPDATE FUNCTION
@@ -31,30 +28,22 @@ f_update_bashrc() {
         curl https://raw.githubusercontent.com/MartusDortus/dotfiles/master/.bashrc
 }
 
-
-
-
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
       *) return;;
 esac
 
-color_red='\033[0;31m'
-color_green='\033[0;32m'
-color_brown='\033[0;33m'
-color_blue='\033[0;33m'
-color_magenta='\033[0;35m'
-color_cyan='\033[0;36m'
-color_white='\033[0;37m]'
-color_gray='\033[0;90m'
-color_yellow='\033[0;93m'
-
-#	RGB '\033[38;2;RR;GG;BBm]'
-color_hypr_blue='\033[38;2;33;255;238m'
-color_hypr_green='\033[38;2;00;255;153m'
-color_hypr_white='\033[38;2;200;200;200m'
-
+COLOR_RED="\[\033[1;31m\]"
+COLOR_GREEN="\[\033[1;32m\]"
+COLOR_YELLOW="\[\033[1;33m\]"
+COLOR_BLUE_THIN="\[\033[0;34m\]"
+COLOR_BLUE="\[\033[1;34m\]"
+COLOR_PURPLE="\[\033[1;35m\]"
+COLOR_CYAN="\[\033[1;36m\]"
+COLOR_WHITE="\[\033[1;37m\]"
+COLOR_GRAY="\[\033[0;32m\]"
+COLOR_NO="\[\033[m\]"
 
 HISTCONTROL=ignoreboth  # Do not hist duplicate lines or space starting lines
 HISTFILESIZE=2000       # lines
@@ -67,15 +56,20 @@ shopt -s checkwinsize   # After every command recheck window size
 
 function nonzero_return() {
 	RETVAL=$?
-	[ $RETVAL -ne 0 ] && echo "[$RETVAL] "
+	[ $RETVAL -ne 0 ] && echo "[$RETVAL]"
 }
 
-PROMPT_SHELL_LVL="${color_hypr_green}[${SHLVL}]"
-PROMPT_USER="${color_hypr_blue}\u"
-PROMPT_PWD="${color_hypr_green}\W"
-PROMPT_PROMPT="${color_hypr_white}$"
+PROMPT_NONZERO_RETURN="${COLOR_GREEN}\`nonzero_return\`"
+PROMPT_SHELL_LVL="${COLOR_GREEN}[${SHLVL}]"
+if [[ $(whoami) == "root" ]]; then
+	PROMPT_USER="${COLOR_RED}\u"
+else
+	PROMPT_USER="${COLOR_BLUE}\u"
+fi
+PROMPT_PWD="${COLOR_BLUE_THIN}\W"
+PROMPT_PROMPT="${COLOR_GREEN}$"
 
-PS1="\`nonzero_return\`${PROMPT_SHELL_LVL} ${PROMPT_USER} ${PROMPT_PWD} ${PROMPT_PROMPT} "
+PS1="${PROMPT_NONZERO_RETURN}${PROMPT_SHELL_LVL} ${PROMPT_USER} ${PROMPT_PWD} ${PROMPT_PROMPT} ${COLOR_NO}"
 
 ##
 ##       ALIASES
@@ -102,16 +96,6 @@ alias s="ssh"
 ##      nload
 alias nload="nload -i 750000 -o 750000 -t 75"
 
-# if [ -f ~/.bash_aliases ]; then
-#   .~/.bash_aliases
-# fi
-
-# make less more friendly for non-text input files, see lesspipe(1)
-#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
