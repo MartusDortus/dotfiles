@@ -10,19 +10,10 @@
     bashrc: "{{ ansible_env.HOME }}/.bashrc"
 
   tasks:
-    - name: Instalace Balicku
-      package:
-        name: "{{ item }}"
-        state: present
-      loop:
-        - [ vim, git, mc, curl, wget ] 
-
     - name: Adresarova struktura
       file:
         path: "{{ item }}"
         state: directory
-        owner: root
-        group: root
         mode: 0750
       loop:
         - "{{ vim_dir }}"

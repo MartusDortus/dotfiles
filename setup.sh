@@ -1,26 +1,22 @@
 #!/bin/bash
 #  v0.1
 #    -  Vyrobeny skript
+#  v0.2
+#    - Neni to uz zavisle pouze na debianu
+#    - Je potreba balicky curl, ansible
 #
 #  TODO
 #  -  Aby po sobe skript uklidil
 #  -  Aby tento skript nakonec nebyl potreba, ale vsechno delal ansible
 
 #  Nastaveni promennych
-WORKING_DIR=~/novy-virtual
-mkdir -p $WORKING_DIR/srcfiles
-
-apt-get update && apt-get upgrade -y
-
-apt-get install curl -y
+WORKING_DIR=./
+mkdir -p ${WORKING_DIR}srcfiles
 
 #  Moje dotfiles
 #  Stahovat drive, nez zapocne snaha o Ansible, takze dotfiles budou, ikdyby neco selhalo.
 curl -L https://raw.githubusercontent.com/MartusDortus/dotfiles/refs/heads/master/.bashrc -o $WORKING_DIR/srcfiles/.bashrc
 curl -L https://raw.githubusercontent.com/MartusDortus/dotfiles/refs/heads/master/.vimrc -o $WORKING_DIR/srcfiles/.vimrc
-
-#  Ansible
-apt-get install ansible -y
 
 ##  Konfigurace pro Ansible
 curl -L https://raw.githubusercontent.com/MartusDortus/dotfiles/refs/heads/master/inventory.yml -o $WOKRING_DIR/inventory.yml
